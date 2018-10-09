@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
 mu_1 = 1
 sigma_1 = .7
@@ -18,13 +19,20 @@ if arg_max+1>=c3.size:
 
 threshold=(c3[arg_max]+c3[arg_max+1])/2
 
+c1_error = 0
 for x in c1:
 	if x>=threshold:
-		print('misclassified')
+		c1_error=c1_error+1
 
+c2_error = 0
 for x in c2:
 	if x<threshold:
-		print('misclassified')
+		c2_error=c2_error+1
+
+if c1_error>0 or c2_error>0:
+	print('misclassified')		
+
+kmeans = KMeans(n_clusters=2, random_state=0).fit(c3.reshape(-1,1))	
 
 plt.plot(d)
 plt.plot(c3)
