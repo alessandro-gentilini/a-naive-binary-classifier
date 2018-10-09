@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 mu_1 = 1
-sigma_1 = .5
-mu_2 = 5*mu_1
+sigma_1 = .7
+mu_2 = 6*mu_1
 sigma_2 = sigma_1
-N_1 = 10
+N_1 = 500
 N_2 = 110
 c1 = np.random.normal(mu_1,sigma_1,N_1)
 c2 = np.random.normal(mu_2,sigma_2,N_2)
@@ -17,8 +17,14 @@ if arg_max+1>=c3.size:
 	raise Exception('unexpected')
 
 threshold=(c3[arg_max]+c3[arg_max+1])/2
-print(threshold)
 
+for x in c1:
+	if x>=threshold:
+		print('misclassified')
+
+for x in c2:
+	if x<threshold:
+		print('misclassified')
 
 plt.plot(d)
 plt.plot(c3)
